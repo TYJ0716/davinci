@@ -13,12 +13,16 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 #  >>
+server:
+  protocol: http
+  address: 127.0.0.1
+  port: 8080
 
 file:
-  userfiles-path: ${DAVINCI3_HOME}/userfiles/
-  web_resources: ${DAVINCI3_HOME}/davinci-ui/
-  phantomJs-path: ${DAVINCI3_HOME}/bin/phantom.js
-  base-path: ${DAVINCI3_HOME}/lib/
+  userfiles-path: userfiles/
+  web_resources: davinci-ui/
+  phantomJs-path: bin/phantom.js
+  base-path: lib/
 
 
 spring:
@@ -27,13 +31,15 @@ spring:
       max-request-size: 1024MB
       max-file-size: 1024MB
       enabled: true
-
-  config:
-    location: classpath:/
-    additional-location: file:${DAVINCI3_HOME}/config/
-    name: application
-
   datasource:
+    url: jdbc:mysql://rm-hp3qgn64g7i3s4yujco.mysql.huhehaote.rds.aliyuncs.com:3306/davinci0.3?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: qindbuser
+    password: M99ZrvCWwhTma88j
+    driver-class-name: com.mysql.jdbc.Driver
+    initial-size: 2
+    min-idle: 1
+    max-wait: 60000
+    max-active: 10
     type: com.alibaba.druid.pool.DruidDataSource
     time-between-eviction-runs-millis: 30000
     min-evictable-idle-time-millis: 300000
@@ -45,8 +51,34 @@ spring:
     connection-error-retry-attempts: 3
     validation-query: SELECT 1
 
+  mail:
+    host: smtp.163.com
+    port: 25
+    username: 13117213137@163.com
+    fromAddress:
+    password: asdf1234
+    nickname: Davinci
+
+    properties:
+      smtp:
+        starttls:
+          enable: true
+          required: true
+        auth: true
+      mail:
+        smtp:
+          ssl:
+            enable: false
+  ldap:
+    urls:
+    username:
+    password:
+    base:
+    domainName:    # domainName 指 企业邮箱后缀，如企业邮箱为：xxx@example.com, 这里值为 '@example.com'
+
+
   resources:
-    static-locations: classpath:/META-INF/resources/, classpath:/resources/, classpath:/static/, file:${file.userfiles-path}, file:${file.web_resources}
+    static-locations: classpath:/META-INF/resources/, classpath:/resources/, file:/static/, file:${file.userfiles-path}, file:${file.web_resources}
 
   mvc:
     static-path-pattern: /**
@@ -68,17 +100,31 @@ spring:
   cache:
     caffeine:
       type: caffeine
-
-
 logging:
-  config: file:${DAVINCI3_HOME}/config/logback.xml
-
+  config: classpath:logback.xml
 springfox:
   documentation:
     swagger:
       v2:
         path: /api-doc
 
+screenshot:
+  default_browser: CHROME                    # PHANTOMJS or CHROME
+  timeout_second: 60
+  phantomjs_path: $your_phantomjs_path$
+  chromedriver_path: C:\Users\TYJ\Desktop\chromedriver.exe
+
+data-auth-center:
+  channels:
+    - name:
+      base-url:
+      auth-code:
+
+statistic:
+  enable: true
+  # You can use external elasticsearch storage [127.0.0.1:9300], default davinci datasouce
+  elastic_urls:
+  elastic_index_prefix:
 
 pagehelper:
   supportMethodsArguments: true
@@ -102,4 +148,4 @@ mapper:
 
 sql_template_delimiter: $
 
-custom-datasource-driver-path: ${DAVINCI3_HOME}/config/datasource_driver.yml
+custom-datasource-driver-path: ../config/datasource_driver.yml

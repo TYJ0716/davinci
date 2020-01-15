@@ -196,7 +196,7 @@ public class SourceController extends BaseController {
      * @return
      */
     @ApiOperation(value = "test source", consumes = MediaType.APPLICATION_JSON_VALUE)
-    @PostMapping(value = "/test", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/davinci/test", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity testSource(@Valid @RequestBody SourceTest sourceTest,
                                      @ApiIgnore BindingResult bindingResult,
                                      @ApiIgnore @CurrentUser User user,

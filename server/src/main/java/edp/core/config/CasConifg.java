@@ -22,7 +22,7 @@ public class CasConifg {
     //@Value("${cas.casServer.urlPrefix}")
     public String casServerUrlPrefix="http://192.168.1.184:8081/cas";
     //@Value("${cas.localServer.serverName}")
-    public String serverName="http://127.0.0.1:8990";
+    public String serverName="http://127.0.0.1:8080";
     /**
      * SingleSignOutFilter filter
      */
